@@ -25,10 +25,9 @@ To try it out in the meantime, you can create your own project from right inside
 4. Once saved, open the add-on by clicking Add-ons > Goophy > Get Goophy from the menu bar of your Google Doc.
 5. Enjoy!
 
-( instructions source:  [Google Apps Script Quickstart - Docs](https://developers.google.com/apps-script/quickstart/docs))
-
 ## Product Roadmap
-I built this project in one weekend to learn Google App Scripts. With additional time, I'd like to:
+I built this project in one weekend to learn Google Apps Script. With additional time, I'd like to:
 + Add a toggle to filter by "ratings" -- currently the app only returns "G" rated gifs to make sure the application is suitable for audiences of all ages.
 + Create more interesting UI components, styling and interactions -- on hover, on blur, etc
++ Explore design / organizational patterns used in Google Apps Script projects and refactor the code
 + Publish Goophy! I will need to QA more deeply, get an API key from Giphy and submit to Google for approval.
