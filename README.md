@@ -6,8 +6,7 @@ This simple application is built with the [Google Apps Script](https://developer
 
 Users can highlight or type in up to three words to use as search terms. After clicking "Search," the program hits the Giphy API and renders the search results in the add-on sidebar. When the user clicks on a gif, a larger version of that gif is added to the document where the user's cursor is placed.
 
-<img src='http://res.cloudinary.com/dkddd3jci/image/upload/c_scale,q_100,w_400/v1488200053/Goophy_Demo_Optimized_pqsw0s.gif' alt="Goophy Demo")>
-
+<img src='http://res.cloudinary.com/dkddd3jci/image/upload/c_scale,w_450/v1488200038/Goophy_Demo_isliey.gif' alt="Goophy Demo")>
 
 ## Technical Details
 Google Apps Script uses a JavaScript-like language. Along with jQuery and a bank of server-side helper functions that manipulate the actual Google Doc where the add-on is installed, the Google Apps Script documenation and tutorials help you get up and running with a project very quickly. This ["quickstart" walkthrough](https://developers.google.com/apps-script/quickstart/docs) was very helpful.
