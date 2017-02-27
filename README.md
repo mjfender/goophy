@@ -15,7 +15,7 @@ The unique configuration of Google Apps Script made it difficult to imagine this
 
 
 ## Installation Instructions
-At this time, the add-on is not yet published and publicly available in the Google Apps Marketplace. Stay tuned.
+At this time, the add-on is not published and so it's not yet publicly available in the Google Apps Marketplace. Stay tuned.
 
 To try it out in the meantime, you can create your own project from right inside a Google Doc.
 
