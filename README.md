@@ -17,7 +17,7 @@ The unique configuration of Google Apps Script made it difficult to imagine this
 ## Installation Instructions
 At this time, the add-on is not published and so it's not yet publicly available in the Google Apps Marketplace. Stay tuned.
 
-To try it out in the meantime, you can create your own project from right inside a Google Doc.
+To try it out in the meantime, you can create the add-on right inside a Google Doc using the code in this repository:
 
 1. In a new Google Doc, select Tools > Script editor in the menu. Choose "Blank Project".
 2. Delete the existing code in the script editor and paste in the code from Code.gs in this repo.
