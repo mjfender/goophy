@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <base target="_top">
+    <link rel="stylesheet" href="https://ssl.gstatic.com/docs/script/css/add-ons1.css">
+    <!-- The CSS package above applies Google styling to buttons and other elements. -->
+    
+
+    <style>
+    <!-- Add custom styles here -->
+    .branding-above {
+      top: 100px;
+      bottom: 0;
+    }
+
+    .branding-text {
+      left: 7px;
+      position: relative;
+      top: 3px;
+    }
+    
+    .center {
+      flex-direction: row;
+    }
+    
+    .container {
+    display: flex;
+    flex-direction: row;  /* make main axis vertical */
+    justify-content: center;
+    align-items: center;
+    height: 15px;
+    }
+    
+    .error {
+      height: 15px;
+      text-align: center;
+    }
+    
+    .gif {
+      padding: 5px
+    }
+    
+    .hidden {
+      visibility: hidden
+    }
+
+    .logo {
+      vertical-align: middle;
+      display: block;
+      margin: auto;
+    }
+    
+    .purple {
+      color: #7d59ad;
+      text-shadow: 1px 1px grey;
+      font-size: 23px;
+    }
+
+    .radio-spacer {
+      height: 20px;
+    }
+    
+    .results {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    }
+    
+    .spacer {
+      margin-top: 16px;
+      margin-bottom: 16px;
+    }
+
+    .width-75 {
+      width: 75%;
+    }
+    
+    #instructions {
+      text-align: center;
+      line-height: 1.25;
+      margin-top: 40px;
+    }
+    
+    #text-select {
+      margin-top: 35px;
+    }
+    
+    #search-button {
+      margin-top:30px;
+    }
+    
+    </style>
+  </head>
+  <body>
+    <!-- Section for error messages -->
+    <div class="sidebar top">
+        <img class="logo" width="200" height="40" alt="Goophy Logo" src="https://res.cloudinary.com/dkddd3jci/image/upload/v1488061263/goophy_logo_syjqal.png">
+    </div>
+    <div class="sidebar branding-above">
+  <!-- Section for instructions (e.g. max number of words to select for Giphy search) -->
+      <div class="block" id="instructions">
+        <h4>
+        <span class="purple"><b>+</b></span> Pick up to 3 search words<br/>
+        <span class="purple"><b>+</b></span> Search Giphy <br/>
+        <span class="purple"><b>+</b></span> Click in your doc where you want to add a gif <br/> 
+        <span class="purple"><b>+</b></span> Click gifs to get Goophy!</h4>
+      </div>
+  <!-- Show currently selected 3 words -->
+      <div class="block container spacer" id="text-select">
+        <form>
+            <label for="selected-text"><b>Selected Text</b></label><br/>
+            <input class="width-50" type="text" id="selected-text" rows="1">
+            <button id="refresh">Update Text</button>
+        </form>
+      </div>
+      
+  <!-- Section for error messages -->
+      <div class="error" id="error">
+      </div>
+      
+  <!-- Button to trigger API call -->
+      <div class="block container" id="search-button">
+        <button class="action" id="search">Search for Gifs</button>
+      </div>
+  <!-- This section appears after API call, shows one GIF at a time. Click gif to add it. -->
+      <div id="results" class="results block spacer">
+      
+      </div>
+      <div class="block spacer">
+        <button class="create hidden" id="insert-button">Get Goophy!</button>
+      </div>
+    </div>
+  <!-- jQuery and app logic loads after view -->
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js">
+    </script>
+    
+    <script>
+      /**
+       * On document load, check if user has already highlighted text. 
+       Also assign click event handlers to each button.
+       */
+       $(document).ready( function() {
+         selectionCheck();
+         $('#refresh').click(selectionCheck);
+         $('#search').click(searchHandler);
+         $('#insert-button').click(handleGifClick);
+        });
+       
+       function selectionCheck(){
+         event.preventDefault()
+         clearErrors()
+         google.script.run
+         .withSuccessHandler(
+              function(selectedText) {
+                $('#selected-text').val(selectedText);
+              })
+         .withFailureHandler(
+              function(msg) {
+                $('#selected-text').val('')
+                clearErrors();
+                showError(msg);
+              })
+         .withUserObject(this)
+         .getSelectedText();
+       }
+      
+      function searchHandler() {
+        var searchBox = $('#selected-text').val().split(" ")
+        if ( searchBox.length > 0 && searchBox.length <= 3 ) {
+          var searchTerm = $('#selected-text').val()
+          clearErrors()
+          google.script.run
+          .withSuccessHandler(
+            function(results) {
+              $('#results').empty()
+              renderGifs(results)
+              // $('#selected-text').val(selectedText);
+            })
+          .withFailureHandler(
+            function(msg) {
+              showError(msg);
+            })
+          .withUserObject(this)
+          .searchGiphy(searchTerm)
+         } else {
+           clearErrors();
+           showError('Search box cannot be blank or contain more than 3 words');
+         }
+          
+      }
+      
+      function renderGifs(results) { 
+        var container = $('#results')
+        results.forEach( function(gif) {
+          var $img = $("<img class='gif' src='" + gif.small + "' alt='Gif'>");
+          // pass the click event the gif object
+          // accessible at handleGifClick with event.data.original or event.data.small
+          $img.click(gif, handleGifClick)
+          container.append($img);
+        } )
+        clearErrors()
+        // jQuery to randomize and display 4 gifs
+        // which should have onClick events pointing to handleGifClick
+      }
+      
+      function handleGifClick(event){
+        var gifOriginal = event.data.full;
+        google.script.run
+          .withSuccessHandler(
+            function(results) {
+            })
+          .withFailureHandler(
+            function(msg) {
+              showError(msg);
+            })
+          .withUserObject(this)
+          .insertGif(gifOriginal)
+       }
+      
+      function clearErrors() {
+        $('#error_p').remove()
+      }
+  
+      function showError(msg) {
+         var p = $("<p id='error_p'>" + msg + '</p>');
+         $('#error').append(p)
+      }
+
+    </script>
+  </body>
+</html>
+
+
