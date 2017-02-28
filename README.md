@@ -15,10 +15,9 @@ The unique configuration of Google Apps Script made it difficult to imagine this
 
 
 ## Installation Instructions
-At this time, the add-on is not published and so it's not yet publicly available in the Google Apps Marketplace. Stay tuned.
+The add-on is not published yet in the Google Apps Marketplace.  To try it out in the meantime, you can create the add-on right inside a Google Doc using the code in this repository.
 
-To try it out in the meantime, you can create the add-on right inside a Google Doc using the code in this repository:
-
+### Instructions
 1. In a new Google Doc, select Tools > Script editor in the menu. Choose "Blank Project".
 2. Delete the existing code in the script editor and paste in the code from Code.gs in this repo.
 3. Create the other two files (Goophy_Sidebar.html and adapter.gs) and paste in the code from this repo.
