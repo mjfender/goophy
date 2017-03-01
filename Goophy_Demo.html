@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>How to Use Goophy</title>
+    <base target="_top">
+    <link rel="stylesheet" href="https://ssl.gstatic.com/docs/script/css/add-ons1.css">
+    <!-- The CSS package above applies Google styling to buttons and other elements. -->
+
+    <style>
+    <!-- Add custom styles here -->
+    .logo {
+      vertical-align: middle;
+      display: block;
+      margin: auto;
+      padding-top: 3px;
+    }
+
+    .header {
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      align-items: center;
+      height: 50px;
+    }
+
+    .gif-container {
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+      min-height: 400px;
+    }
+
+    .spacer {
+      margin-top: 8px;
+      margin-bottom: 16px;
+    }
+
+    #close-div {
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      align-items: center;
+    }
+
+
+    </style>
+  </head>
+  <body>
+    <div class="header">
+        <a href="https://github.com/mjfender/goophy" target="_blank">
+          <img class="logo" width="200" alt="Goophy Logo" src="http://res.cloudinary.com/dkddd3jci/image/upload/v1488325353/goophy_logo_v2_ygvsq1.png">
+        </a>
+    </div>
+
+    <div class="gif-container">
+      <img src="http://res.cloudinary.com/dkddd3jci/image/upload/v1488335725/Goophy_HowTo_Final_abytyd.gif" width="500px" alt="Demo Gif">
+    </div>
+
+    <div class="block container" id="close-div">
+      <button id="close">Close</button>
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js">
+    </script>
+    <script>
+    $(document).ready( function() {
+         $('#close').click(modalClose);
+        });
+
+      function modalClose() {
+        event.preventDefault();
+        google.script.host.close()
+      }
+
+    </script>
+  </body>
+</html>

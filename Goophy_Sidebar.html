@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <title>Goophy</title>
     <base target="_top">
     <link rel="stylesheet" href="https://ssl.gstatic.com/docs/script/css/add-ons1.css">
     <!-- The CSS package above applies Google styling to buttons and other elements. -->
-    
 
     <style>
     <!-- Add custom styles here -->
@@ -18,28 +18,28 @@
       position: relative;
       top: 3px;
     }
-    
+
     .center {
       flex-direction: row;
     }
-    
+
     .container {
-    display: flex;
-    flex-direction: row;  /* make main axis vertical */
-    justify-content: center;
-    align-items: center;
-    height: 15px;
-    }
-    
-    .error {
+      display: flex;
+      flex-direction: row;  /* make main axis horizontal */
+      justify-content: center;
+      align-items: center;
       height: 15px;
+    }
+
+    .error {
+      max-height: 15px;
       text-align: center;
     }
-    
+
     .gif {
       padding: 5px
     }
-    
+
     .hidden {
       visibility: hidden
     }
@@ -48,97 +48,111 @@
       vertical-align: middle;
       display: block;
       margin: auto;
+      padding-top: 3px;
     }
-    
+
     .purple {
       color: #7d59ad;
       text-shadow: 1px 1px grey;
-      font-size: 23px;
+      font-size: 20px;
     }
 
     .radio-spacer {
       height: 20px;
     }
-    
+
     .results {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     }
-    
+
     .spacer {
-      margin-top: 16px;
+      margin-top: 8px;
       margin-bottom: 16px;
     }
 
     .width-75 {
       width: 75%;
     }
-    
+
+    #footer {
+     position:fixed;
+     left:0px;
+     bottom:0px;
+     height:30px;
+     width:100%;
+     background:#59C3C3;
+     padding-top: 2px;
+     padding-bottom: 2px
+    }
     #instructions {
       text-align: center;
       line-height: 1.25;
-      margin-top: 40px;
+      margin-top: 55px;
     }
-    
-    #text-select {
-      margin-top: 35px;
-    }
-    
+
     #search-button {
       margin-top:30px;
     }
-    
+
+    #text-select {
+      margin-top: 35px;
+    }
+
+
     </style>
   </head>
   <body>
-    <!-- Section for error messages -->
     <div class="sidebar top">
-        <img class="logo" width="200" height="40" alt="Goophy Logo" src="https://res.cloudinary.com/dkddd3jci/image/upload/v1488061263/goophy_logo_syjqal.png">
+        <a href="https://github.com/mjfender/goophy" target="_blank">
+          <img class="logo" width="200" alt="Goophy Logo" src="https://res.cloudinary.com/dkddd3jci/image/upload/v1488325353/goophy_logo_v2_ygvsq1.png">
+        </a>
     </div>
     <div class="sidebar branding-above">
   <!-- Section for instructions (e.g. max number of words to select for Giphy search) -->
       <div class="block" id="instructions">
         <h4>
-        <span class="purple"><b>+</b></span> Pick up to 3 search words<br/>
-        <span class="purple"><b>+</b></span> Search Giphy <br/>
-        <span class="purple"><b>+</b></span> Click in your doc where you want to add a gif <br/> 
-        <span class="purple"><b>+</b></span> Click gifs to get Goophy!</h4>
+        <span class="purple"><b>+</b></span> Pick up to 3 search terms<br/>
+        <span class="purple"><b>+</b></span> Search (powered by Giphy) <br/>
+        <span class="purple"><b>+</b></span> Click in the doc where you want a gif<br/>
+        <span class="purple"><b>+</b></span> Click a gif below to add it!</h4>
       </div>
   <!-- Show currently selected 3 words -->
       <div class="block container spacer" id="text-select">
         <form>
-            <label for="selected-text"><b>Selected Text</b></label><br/>
-            <input class="width-50" type="text" id="selected-text" rows="1">
-            <button id="refresh">Update Text</button>
+            <input class="width-50" type="text" id="selected-text" rows="1" placeholder="     enter search terms">
+            <button id="refresh">Update</button>
         </form>
       </div>
-      
+
   <!-- Section for error messages -->
       <div class="error" id="error">
       </div>
-      
+
   <!-- Button to trigger API call -->
       <div class="block container" id="search-button">
         <button class="action" id="search">Search for Gifs</button>
       </div>
   <!-- This section appears after API call, shows one GIF at a time. Click gif to add it. -->
       <div id="results" class="results block spacer">
-      
+
       </div>
-      <div class="block spacer">
-        <button class="create hidden" id="insert-button">Get Goophy!</button>
+      <div id="footer">
+        <a href="https://www.giphy.com" target="_blank">
+          <img class="logo" src="https://res.cloudinary.com/dkddd3jci/image/upload/v1488323012/PoweredBy_200px-Black_HorizLogo_whbe3x.png" alt="Powered by Giphy">
+        </a>
       </div>
     </div>
   <!-- jQuery and app logic loads after view -->
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js">
     </script>
-    
+
     <script>
       /**
-       * On document load, check if user has already highlighted text. 
+       * On document load, check if user has already highlighted text.
        Also assign click event handlers to each button.
        */
        $(document).ready( function() {
@@ -146,8 +160,14 @@
          $('#refresh').click(selectionCheck);
          $('#search').click(searchHandler);
          $('#insert-button').click(handleGifClick);
+         $('#selected-text').on('keypress', function(e){
+           if (e.keyCode == 13) {
+              e.preventDefault();
+              searchHandler()
+            }
+          })
         });
-       
+
        function selectionCheck(){
          event.preventDefault()
          clearErrors()
@@ -165,11 +185,12 @@
          .withUserObject(this)
          .getSelectedText();
        }
-      
+
       function searchHandler() {
         var searchBox = $('#selected-text').val().split(" ")
         if ( searchBox.length > 0 && searchBox.length <= 3 ) {
           var searchTerm = $('#selected-text').val()
+          $('#selected-text').val("");
           clearErrors()
           google.script.run
           .withSuccessHandler(
@@ -188,10 +209,10 @@
            clearErrors();
            showError('Search box cannot be blank or contain more than 3 words');
          }
-          
+
       }
-      
-      function renderGifs(results) { 
+
+      function renderGifs(results) {
         var container = $('#results')
         results.forEach( function(gif) {
           var $img = $("<img class='gif' src='" + gif.small + "' alt='Gif'>");
@@ -204,7 +225,7 @@
         // jQuery to randomize and display 4 gifs
         // which should have onClick events pointing to handleGifClick
       }
-      
+
       function handleGifClick(event){
         var gifOriginal = event.data.full;
         google.script.run
@@ -218,18 +239,16 @@
           .withUserObject(this)
           .insertGif(gifOriginal)
        }
-      
+
       function clearErrors() {
         $('#error_p').remove()
       }
-  
+
       function showError(msg) {
-         var p = $("<p id='error_p'>" + msg + '</p>');
+         var p = $("<p id='error_p'>" + msg + "</p>");
          $('#error').append(p)
       }
 
     </script>
   </body>
 </html>
-
-
