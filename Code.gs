@@ -7,7 +7,7 @@
  * and not all of the user's files. The authorization request message
  * presented to users will reflect this limited scope.
  */
- 
+
 /**
  * Creates a menu entry in the Google Docs UI when the document is opened.
  * This method is only used by the regular add-on, and is never called by
@@ -19,7 +19,8 @@
  */
 function onOpen(e) {
   DocumentApp.getUi().createAddonMenu()
-      .addItem('Get Goophy', 'showSidebar')
+      .addItem('Start Goophy', 'showSidebar')
+      .addItem('How to Use', 'instructions')
       .addToUi();
 }
 
@@ -47,7 +48,16 @@ function showSidebar() {
   var ui = HtmlService.createHtmlOutputFromFile('Goophy_Sidebar')
       .setTitle('Goophy');
   DocumentApp.getUi().showSidebar(ui);
-  Logger.log("hit showSidebar")
+}
+
+function instructions() {
+  var instructions = HtmlService.createHtmlOutputFromFile('Goophy_Demo')
+      .setTitle('')
+      .setWidth(500)
+      .setHeight(500);
+
+  DocumentApp.getUi()
+    .showModalDialog(instructions, ' ');
 }
 
 /**
@@ -56,14 +66,12 @@ function showSidebar() {
  *
  */
 function getSelectedText() {
-  Logger.log("hit getSelectedText")
   var selection = DocumentApp.getActiveDocument().getSelection();
   if (selection) {
     var text = [];
     var elements = selection.getSelectedElements();
     for (var i = 0; i < elements.length; i++) {
       if (elements[i].isPartial()) {
-        Logger.log('1' + i + elements[i])
         var element = elements[i].getElement().asText();
         var startIndex = elements[i].getStartOffset();
         var endIndex = elements[i].getEndOffsetInclusive();
@@ -77,7 +85,7 @@ function getSelectedText() {
           var elementText = element.asText().getText();
           // This check is necessary to exclude images, which return a blank
           // text element.
-          if (elementText != '') {
+          if (elementText !== '') {
             text.push(elementText);
           }
         }
@@ -94,6 +102,8 @@ function getSelectedText() {
   }
 }
 
+
+
 /**
  * Creates a new GiphyAPI adapter object and returns
  * an array of objects with keys containing the large and
@@ -103,21 +113,20 @@ function getSelectedText() {
  */
 
 function searchGiphy(searchTerm) {
-  Logger.log(searchTerm);
-  var giphyAPI = new GiphyAPI
-  var response = giphyAPI.searchByKeyword(searchTerm)
-  var gifsToRender = []
+  var giphyAPI = new GiphyAPI();
+  var response = giphyAPI.searchByKeyword(searchTerm);
+  var gifsToRender = [];
   if (response.data.length > 0) {
     response.data.forEach( function(gif) {
       var newGif = {};
-      newGif['small'] = gif.images.fixed_width.url;
-      newGif['full'] = gif.images.original.url;
+      newGif.small = gif.images.fixed_width.url;
+      newGif.full = gif.images.original.url;
       gifsToRender.push(newGif);
-    })
+    });
   } else {
-      throw 'No results found :( Try again!'                     
+      throw 'No results found :( Try again!';
   }
-  return gifsToRender     
+  return gifsToRender;
 }
 
 /**
@@ -126,17 +135,16 @@ function searchGiphy(searchTerm) {
  * @param {string} gifUrl - The gif image URL to add.
  */
 function insertGif(gifUrl) {
-  Logger.log(gifUrl)
-  var image = gifUrl
+  var image = gifUrl;
   var blob = UrlFetchApp.fetch(image).getBlob();
-  
+
   var doc = DocumentApp.getActiveDocument();
   var cursor = doc.getCursor();
-  
-  if (cursor) {    
+
+  if (cursor) {
     cursor.insertInlineImage(blob);
   } else {
     doc.getBody().insertImage(0, blob);
   }
-  
+
 }
