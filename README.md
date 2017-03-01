@@ -1,7 +1,7 @@
 # Goophy
 A Google Doc add-on that helps users quickly access the Giphy API and insert animated gifs into their documents. Google + Giphy? Goophy!
 
-## Summary
+## Description
 This simple application is built with the [Google Apps Script](https://developers.google.com/apps-script/overview "Google Apps Script") language to provide a fun (.. Goophy?) experience for Google Docs users.
 
 Users can highlight or type in up to three words to use as search terms. After clicking "Search," the program hits the Giphy API and renders the search results in the add-on sidebar. When the user clicks on a gif, a larger version of that gif is added to the document where the user's cursor is placed.
