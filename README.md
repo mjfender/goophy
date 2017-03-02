@@ -8,7 +8,7 @@ This simple application is built with the [Google Apps Script](https://developer
 
 Users can highlight or type in up to three words to use as search terms. After clicking "Search," the program hits the Tenor Gif API and renders the search results in the add-on sidebar. When the user clicks on a gif, a larger version of that gif is added to the document where the user's cursor is placed.
 
-<img src='http://res.cloudinary.com/dkddd3jci/image/upload/v1488335373/Goophy_HowTo5_zbt0g2.gif' alt="Goophy Demo" width=550px)>
+<img src='http://res.cloudinary.com/dkddd3jci/image/upload/q_100/v1488487659/Goophy_HowTo_Tenor_Final_600px_wdhilj.gif' alt="Goophy Demo" width=500px)>
 
 ## Technical Details
 Google Apps Script uses a JavaScript-like language. Along with jQuery and a bank of server-side helper functions that manipulate the actual Google Doc where the add-on is installed, the Google Apps Script documenation and tutorials help you get up and running with a project very quickly. This ["quickstart" walkthrough](https://developers.google.com/apps-script/quickstart/docs) was very helpful.
