@@ -1,6 +1,8 @@
 # Goophy
 A Google Doc add-on that helps users quickly find and insert animated gifs into their documents. Google + Gifs? Goophy! 
 
+[Download it for free in the Google Chrome store.](https://chrome.google.com/webstore/detail/goophy/hihakceniinffblahgbijojnpjbmecki?utm_source=permalink)
+
 The gif search is powered by [Tenor GIF API](https://www.tenor.co/gifapi).
 
 ## Description
@@ -17,7 +19,11 @@ The unique configuration of Google Apps Script made it difficult to imagine this
 
 
 ## Installation Instructions
-The add-on is not published yet in the Google Apps Marketplace.  To try it out in the meantime, you can create the add-on right inside a Google Doc using the code in this repository.
+To install Goophy for free, (visit the Google Docs Add-on store)[https://chrome.google.com/webstore/detail/goophy/hihakceniinffblahgbijojnpjbmecki?utm_source=permalink].
+
+Once installed, you can start Goophy from the menu bar of a Google Doc. Go to **Add-ons > Goophy > Start Goophy.** 
+
+For a very Goophy walkthrough, go to **Add-ons > Goophy > How to Use**.
 
 ### Instructions
 1. In a new Google Doc, select Tools > Script editor in the menu. Choose "Blank Project".
