@@ -112,15 +112,19 @@ function getSelectedText() {
  * @param {string} searchTerm - The string of search keyword(s)
  */
 
-function searchGiphy(searchTerm) {
-  var giphyAPI = new GiphyAPI();
-  var response = giphyAPI.searchByKeyword(searchTerm);
+function searchAPI (searchTerm) {
+  // var giphyAPI = new GiphyAPI();
+  var tenorAPI = new TenorAPI();
+  // var response = giphyAPI.searchByKeyword(searchTerm);
+  var response = tenorAPI.searchByKeyword(searchTerm);
   var gifsToRender = [];
-  if (response.data.length > 0) {
-    response.data.forEach( function(gif) {
+  if (response.results.length > 0) {
+    response.results.forEach( function(gif) {
       var newGif = {};
-      newGif.small = gif.images.fixed_width.url;
-      newGif.full = gif.images.original.url;
+      var smallGif = gif.media[0].tinygif.url;
+      var largeGif = gif.media[0].gif.url;
+      newGif.small = smallGif;
+      newGif.full = largeGif;
       gifsToRender.push(newGif);
     });
   } else {
