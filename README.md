@@ -33,8 +33,9 @@ For a very Goophy walkthrough, go to **Add-ons > Goophy > How to Use**.
 5. Enjoy!
 
 ## Product Roadmap
+Let me know what you want! Click the Issues tag to add a bug or idea, or email goophyapp@gmail.com.
+
 Features I am considering for future versions:
 + Create more interesting UI components, styling and interactions -- on hover, on blur, etc
 + Explore design / organizational patterns used in Google Apps Script projects and refactor the code
 + Allow access to additional search results by adding "paging"
-+ Publish Goophy! I will need to QA more deeply, get an API key from Tenor and submit to Google for approval.
