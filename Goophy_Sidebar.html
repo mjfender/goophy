@@ -81,7 +81,7 @@
      position:fixed;
      left:0px;
      bottom:0px;
-     height:30px;
+     height:32px;
      width:100%;
      background:#59C3C3;
      padding-top: 2px;
@@ -115,7 +115,7 @@
       <div class="block" id="instructions">
         <h4>
         <span class="purple"><b>+</b></span> Pick up to 3 search terms<br/>
-        <span class="purple"><b>+</b></span> Search (powered by Giphy) <br/>
+        <span class="purple"><b>+</b></span> Search (powered by Tenor) <br/>
         <span class="purple"><b>+</b></span> Click in the doc where you want a gif<br/>
         <span class="purple"><b>+</b></span> Click a gif below to add it!</h4>
       </div>
@@ -140,8 +140,8 @@
 
       </div>
       <div id="footer">
-        <a href="https://www.giphy.com" target="_blank">
-          <img class="logo" src="https://res.cloudinary.com/dkddd3jci/image/upload/v1488323012/PoweredBy_200px-Black_HorizLogo_whbe3x.png" alt="Powered by Giphy">
+        <a href="https://www.tenor.co/gifapi" target="_blank">
+          <img class="logo" src="http://res.cloudinary.com/dkddd3jci/image/upload/v1488484729/searchPoweredNOLINKrs_oudxg8.png" width="70px" alt="Powered by Tenor">
         </a>
       </div>
     </div>
@@ -195,16 +195,15 @@
           google.script.run
           .withSuccessHandler(
             function(results) {
-              $('#results').empty()
-              renderGifs(results)
-              // $('#selected-text').val(selectedText);
+              $('#results').empty();
+              renderGifs(results);
             })
           .withFailureHandler(
             function(msg) {
               showError(msg);
             })
           .withUserObject(this)
-          .searchGiphy(searchTerm)
+          .searchAPI(searchTerm)
          } else {
            clearErrors();
            showError('Search box cannot be blank or contain more than 3 words');
@@ -213,17 +212,15 @@
       }
 
       function renderGifs(results) {
-        var container = $('#results')
+        var container = $('#results');
         results.forEach( function(gif) {
-          var $img = $("<img class='gif' src='" + gif.small + "' alt='Gif'>");
+          var $img = $("<img class='gif' width='200px' src='" + gif.small + "' alt='Gif'>");
           // pass the click event the gif object
           // accessible at handleGifClick with event.data.original or event.data.small
           $img.click(gif, handleGifClick)
           container.append($img);
         } )
         clearErrors()
-        // jQuery to randomize and display 4 gifs
-        // which should have onClick events pointing to handleGifClick
       }
 
       function handleGifClick(event){
