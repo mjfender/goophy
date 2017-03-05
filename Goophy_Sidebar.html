@@ -37,7 +37,28 @@
     }
 
     .gif {
-      padding: 5px
+    }
+
+    .gifContainer {
+      transition: 0.5s;
+      -webkit-transition:0.5s;
+      display: flex;
+      flex-direction: row;  /* make main axis horizontal */
+      justify-content: center;
+      align-items: center;
+      margin: 5px 0px 5px 0px;
+    }
+
+    .gifContainer:hover {
+      border: 4px;
+      border-color: white #7b55ab white #59C3C3;
+      border-style: hidden solid hidden solid;
+      opacity: 0.6;
+      padding: 2px;
+    }
+
+    .hover {
+      cursor: pointer;
     }
 
     .hidden {
@@ -90,11 +111,14 @@
     #instructions {
       text-align: center;
       line-height: 1.25;
-      margin-top: 55px;
     }
 
     #search-button {
       margin-top:30px;
+    }
+
+    #under-header{
+      margin-top: 55px;
     }
 
     #text-select {
@@ -110,7 +134,7 @@
           <img class="logo" width="200" alt="Goophy Logo" src="https://res.cloudinary.com/dkddd3jci/image/upload/v1488325353/goophy_logo_v2_ygvsq1.png">
         </a>
     </div>
-    <div class="sidebar branding-above">
+    <div class="sidebar branding-above" id="under-header">
   <!-- Section for instructions (e.g. max number of words to select for Giphy search) -->
       <div class="block" id="instructions">
         <h4>
@@ -123,7 +147,7 @@
       <div class="block container spacer" id="text-select">
         <form>
             <input class="width-50" type="text" id="selected-text" rows="1" placeholder="     enter search terms">
-            <button id="refresh">Update</button>
+            <button id="refresh" class="hover">Update</button>
         </form>
       </div>
 
@@ -133,7 +157,7 @@
 
   <!-- Button to trigger API call -->
       <div class="block container" id="search-button">
-        <button class="action" id="search">Search for Gifs</button>
+        <button class="action hover" id="search">Search for Gifs</button>
       </div>
   <!-- This section appears after API call, shows one GIF at a time. Click gif to add it. -->
       <div id="results" class="results block spacer">
@@ -189,6 +213,7 @@
       function searchHandler() {
         var searchBox = $('#selected-text').val().split(" ")
         if ( searchBox.length > 0 && searchBox.length <= 3 ) {
+          $('#instructions').hide();
           var searchTerm = $('#selected-text').val()
           $('#selected-text').val("");
           clearErrors()
@@ -214,11 +239,13 @@
       function renderGifs(results) {
         var container = $('#results');
         results.forEach( function(gif) {
-          var $img = $("<img class='gif' width='200px' src='" + gif.small + "' alt='Gif'>");
+          var $gifContainer = $("<div class='gifContainer'></div>")
+          container.append($gifContainer);
+          var $img = $("<img class='gif hover' width='200px' src='" + gif.small + "' alt='Gif'>");
           // pass the click event the gif object
           // accessible at handleGifClick with event.data.original or event.data.small
           $img.click(gif, handleGifClick)
-          container.append($img);
+          $gifContainer.append($img)
         } )
         clearErrors()
       }
