@@ -19,24 +19,34 @@
       top: 3px;
     }
 
-    .center {
-      flex-direction: row;
-    }
-
-    .container {
-      display: flex;
-      flex-direction: row;  /* make main axis horizontal */
-      justify-content: center;
-      align-items: center;
-      height: 15px;
-    }
-
     .error {
       max-height: 15px;
       text-align: center;
     }
 
-    .gif {
+    .flexH {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .gifContainer {
+      transition: 0.5s;
+      -webkit-transition:0.5s;
+      display: flex;
+      flex-direction: row;  /* make main axis horizontal */
+      justify-content: center;
+      align-items: center;
+      margin: 5px 0px 5px 0px;
+    }
+
+    .gifContainer:hover {
+      border: 4px;
+      border-color: white #7b55ab white #59C3C3;
+      border-style: hidden solid hidden solid;
+      opacity: 0.6;
+      padding: 2px;
     }
 
     .gifContainer {
@@ -62,12 +72,15 @@
     }
 
     .hidden {
-      visibility: hidden
+      visibility: hidden;
+      height: 0;
     }
 
     .logo {
-      vertical-align: middle;
-      display: block;
+      margin: 0;
+    }
+
+    .logoContainer {
       margin: auto;
       padding-top: 3px;
     }
@@ -76,10 +89,6 @@
       color: #7d59ad;
       text-shadow: 1px 1px grey;
       font-size: 20px;
-    }
-
-    .radio-spacer {
-      height: 20px;
     }
 
     .results {
@@ -94,10 +103,6 @@
       margin-bottom: 16px;
     }
 
-    .width-75 {
-      width: 75%;
-    }
-
     #footer {
      position:fixed;
      left:0px;
@@ -105,9 +110,10 @@
      height:32px;
      width:100%;
      background:#59C3C3;
-     padding-top: 2px;
-     padding-bottom: 2px
+     padding-top: 5px;
+
     }
+
     #instructions {
       text-align: center;
       line-height: 1.25;
@@ -123,6 +129,11 @@
 
     #text-select {
       margin-top: 35px;
+      height: 15px;
+    }
+
+    #toplogo {
+      color: white;
     }
 
 
@@ -130,9 +141,13 @@
   </head>
   <body>
     <div class="sidebar top">
-        <a href="https://github.com/mjfender/goophy" target="_blank">
-          <img class="logo" width="200" alt="Goophy Logo" src="https://res.cloudinary.com/dkddd3jci/image/upload/v1488325353/goophy_logo_v2_ygvsq1.png">
+      <div class="logoContainer flexH">
+        <a id="toplogo" href="https://github.com/mjfender/goophy" target="_blank">
+          <img class="logo hidden" height="50" id="goophySpinner"  src="http://res.cloudinary.com/dkddd3jci/image/upload/q_100/v1489000847/logo_left_animated_3_nopause_hs3ire.gif">
+          <img class="logo" height="50" id="goophyLogo"  src="http://res.cloudinary.com/dkddd3jci/image/upload/q_100/v1489000486/logo_left_animated_3_rtbxai.gif">
+          <img class="logo" height="50" src="http://res.cloudinary.com/dkddd3jci/image/upload/q_100/v1488999016/logo_right_side_xwjztd.png">
         </a>
+      </div>
     </div>
     <div class="sidebar branding-above" id="under-header">
   <!-- Section for instructions (e.g. max number of words to select for Giphy search) -->
@@ -144,7 +159,7 @@
         <span class="purple"><b>+</b></span> Click a gif below to add it!</h4>
       </div>
   <!-- Show currently selected 3 words -->
-      <div class="block container spacer" id="text-select">
+      <div class="block flexH spacer" id="text-select">
         <form>
             <input class="width-50" type="text" id="selected-text" rows="1" placeholder="     enter search terms">
             <button id="refresh" class="hover">Update</button>
@@ -156,14 +171,15 @@
       </div>
 
   <!-- Button to trigger API call -->
-      <div class="block container" id="search-button">
+
+      <div class="block flexH" id="search-button">
         <button class="action hover" id="search">Search for Gifs</button>
       </div>
   <!-- This section appears after API call, shows one GIF at a time. Click gif to add it. -->
       <div id="results" class="results block spacer">
 
       </div>
-      <div id="footer">
+      <div id="footer" class="flexH">
         <a href="https://www.tenor.co/gifapi" target="_blank">
           <img class="logo" src="http://res.cloudinary.com/dkddd3jci/image/upload/v1488484729/searchPoweredNOLINKrs_oudxg8.png" width="70px" alt="Powered by Tenor">
         </a>
@@ -183,7 +199,6 @@
          selectionCheck();
          $('#refresh').click(selectionCheck);
          $('#search').click(searchHandler);
-         $('#insert-button').click(handleGifClick);
          $('#selected-text').on('keypress', function(e){
            if (e.keyCode == 13) {
               e.preventDefault();
@@ -244,7 +259,8 @@
           var $img = $("<img class='gif hover' width='200px' src='" + gif.small + "' alt='Gif'>");
           // pass the click event the gif object
           // accessible at handleGifClick with event.data.original or event.data.small
-          $img.click(gif, handleGifClick)
+
+          $img.on("click", gif, handleGifClick)
           $gifContainer.append($img)
         } )
         clearErrors()
