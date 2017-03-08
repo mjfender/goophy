@@ -49,8 +49,22 @@
       padding: 2px;
     }
 
-    .hidden {
-      visibility: hidden;
+    .gifContainer {
+      transition: 0.5s;
+      -webkit-transition:0.5s;
+      display: flex;
+      flex-direction: row;  /* make main axis horizontal */
+      justify-content: center;
+      align-items: center;
+      margin: 5px 0px 5px 0px;
+    }
+
+    .gifContainer:hover {
+      border: 4px;
+      border-color: white #7b55ab white #59C3C3;
+      border-style: hidden solid hidden solid;
+      opacity: 0.6;
+      padding: 2px;
     }
 
     .hover {
@@ -157,6 +171,7 @@
       </div>
 
   <!-- Button to trigger API call -->
+
       <div class="block flexH" id="search-button">
         <button class="action hover" id="search">Search for Gifs</button>
       </div>
@@ -244,6 +259,7 @@
           var $img = $("<img class='gif hover' width='200px' src='" + gif.small + "' alt='Gif'>");
           // pass the click event the gif object
           // accessible at handleGifClick with event.data.original or event.data.small
+
           $img.on("click", gif, handleGifClick)
           $gifContainer.append($img)
         } )
