@@ -25,13 +25,6 @@ Once installed, you can start Goophy from the menu bar of a Google Doc. Go to **
 
 For a very Goophy walkthrough, go to **Add-ons > Goophy > How to Use**.
 
-### Instructions
-1. In a new Google Doc, select Tools > Script editor in the menu. Choose "Blank Project".
-2. Delete the existing code in the script editor and paste in the code from Code.gs in this repo.
-3. Create the other two files (Goophy_Sidebar.html and adapter.gs) and paste in the code from this repo.
-4. Once saved, open the add-on by clicking Add-ons > Goophy > Get Goophy from the menu bar of your Google Doc.
-5. Enjoy!
-
 ## Product Roadmap
 Let me know what you want! Click the Issues tag to add a bug or idea, or email goophyapp@gmail.com.
 
