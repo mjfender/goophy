@@ -19,7 +19,7 @@ The unique configuration of Google Apps Script made it difficult to imagine this
 
 
 ## Installation Instructions
-To install Goophy for free, (visit the Google Docs Add-on store)[https://chrome.google.com/webstore/detail/goophy/hihakceniinffblahgbijojnpjbmecki?utm_source=permalink].
+To install Goophy for free, [visit the Google Docs Add-on store](https://chrome.google.com/webstore/detail/goophy/hihakceniinffblahgbijojnpjbmecki?utm_source=permalink).
 
 Once installed, you can start Goophy from the menu bar of a Google Doc. Go to **Add-ons > Goophy > Start Goophy.** 
 
