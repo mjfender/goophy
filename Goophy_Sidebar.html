@@ -49,24 +49,6 @@
       padding: 2px;
     }
 
-    .gifContainer {
-      transition: 0.5s;
-      -webkit-transition:0.5s;
-      display: flex;
-      flex-direction: row;  /* make main axis horizontal */
-      justify-content: center;
-      align-items: center;
-      margin: 5px 0px 5px 0px;
-    }
-
-    .gifContainer:hover {
-      border: 4px;
-      border-color: white #7b55ab white #59C3C3;
-      border-style: hidden solid hidden solid;
-      opacity: 0.6;
-      padding: 2px;
-    }
-
     .hover {
       cursor: pointer;
     }
@@ -143,8 +125,8 @@
     <div class="sidebar top">
       <div class="logoContainer flexH">
         <a id="toplogo" href="https://github.com/mjfender/goophy" target="_blank">
-          <img class="logo hidden" height="50" id="goophySpinner"  src="http://res.cloudinary.com/dkddd3jci/image/upload/q_100/v1489000847/logo_left_animated_3_nopause_hs3ire.gif">
-          <img class="logo" height="50" id="goophyLogo"  src="http://res.cloudinary.com/dkddd3jci/image/upload/q_100/v1489000486/logo_left_animated_3_rtbxai.gif">
+          <img class="logo hidden" height="50" id="goophySpinner" src="http://res.cloudinary.com/dkddd3jci/image/upload/q_100/v1489000847/logo_left_animated_3_nopause_hs3ire.gif">
+          <img class="logo" height="50" id="goophyLogo" src="http://res.cloudinary.com/dkddd3jci/image/upload/q_100/v1489000486/logo_left_animated_3_rtbxai.gif">
           <img class="logo" height="50" src="http://res.cloudinary.com/dkddd3jci/image/upload/q_100/v1488999016/logo_right_side_xwjztd.png">
         </a>
       </div>
@@ -171,7 +153,6 @@
       </div>
 
   <!-- Button to trigger API call -->
-
       <div class="block flexH" id="search-button">
         <button class="action hover" id="search">Search for Gifs</button>
       </div>
@@ -204,7 +185,11 @@
               e.preventDefault();
               searchHandler()
             }
-          })
+          });
+         $('.logoContainer').on('mouseenter', function(e) {
+               toggleSpin() });
+         $('.logoContainer').on('mouseleave', function(e) {
+               toggleSpin() });
         });
 
        function selectionCheck(){
@@ -256,10 +241,9 @@
         results.forEach( function(gif) {
           var $gifContainer = $("<div class='gifContainer'></div>")
           container.append($gifContainer);
-          var $img = $("<img class='gif hover' width='200px' src='" + gif.small + "' alt='Gif'>");
+          var $img = $("<img class='gif hover' src='" + gif.small + "' alt='Gif'>");
           // pass the click event the gif object
           // accessible at handleGifClick with event.data.original or event.data.small
-
           $img.on("click", gif, handleGifClick)
           $gifContainer.append($img)
         } )
@@ -287,6 +271,11 @@
       function showError(msg) {
          var p = $("<p id='error_p'>" + msg + "</p>");
          $('#error').append(p)
+      }
+
+      function toggleSpin() {
+         $('#goophyLogo').toggleClass('hidden');
+         $('#goophySpinner').toggleClass('hidden');
       }
 
     </script>

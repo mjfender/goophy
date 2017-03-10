@@ -113,9 +113,7 @@ function getSelectedText() {
  */
 
 function searchAPI (searchTerm) {
-  // var giphyAPI = new GiphyAPI();
   var tenorAPI = new TenorAPI();
-  // var response = giphyAPI.searchByKeyword(searchTerm);
   var response = tenorAPI.searchByKeyword(searchTerm);
   var gifsToRender = [];
   if (response.results.length > 0) {
