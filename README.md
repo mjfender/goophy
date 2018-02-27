@@ -8,7 +8,7 @@ Goophy is powered by [Tenor GIF API](https://www.tenor.co/gifapi).
 ## Description
 This simple application is built with the [Google Apps Script](https://developers.google.com/apps-script/overview "Google Apps Script") language to provide a fun (.. Goophy?) experience for Google Docs users.
 
-Users can highlight or type in up to three words to use as search terms. After clicking "Search," the program hits the Tenor Gif API and renders the search results in the sidebar. When a user clicsk on a gif, a larger version of that gif is added to the document where the user's cursor is placed.
+Users can highlight or type in up to three words to use as search terms. After clicking "Search," the program hits the Tenor Gif API and renders the search results in the sidebar. When a user clicks on a gif, a larger version of that gif is added to the document where the user's cursor is placed.
 
 <img src='http://res.cloudinary.com/dkddd3jci/image/upload/q_100/v1488487659/Goophy_HowTo_Tenor_Final_600px_wdhilj.gif' alt="Goophy Demo" width=500px)>
 
