@@ -1,7 +1,7 @@
 # Goophy
 A Google Doc add-on that helps users quickly find and insert animated gifs into their documents. Google + Gifs? Goophy! 
 
-[Download it for free in the Google Chrome store.](https://workspace.google.com/marketplace/app/goophy/562954128999?source=github_readme)
+[Download it for free in the Google Workspace Marketplace.](https://workspace.google.com/marketplace/app/goophy/562954128999?source=github_readme)
 
 Goophy is powered by [KLIPY GIF API](https://klipy.com).
 
@@ -15,7 +15,7 @@ Add-ons are created using a pretty standard front-end — whatever can be ea
 
 
 ## Installation Instructions
-To install Goophy for free, [visit the Google Docs Add-on store](https://chrome.google.com/webstore/detail/goophy/hihakceniinffblahgbijojnpjbmecki?utm_source=permalink).
+To install Goophy for free, [visit the Google Workspace Marketplace](https://workspace.google.com/marketplace/app/goophy/562954128999?source=github_readme).
 
 Once installed, you can start Goophy from the menu bar of a Google Doc. Go to **Extensions > Goophy > Search for GIFs** 
 
